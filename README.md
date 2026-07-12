@@ -39,3 +39,24 @@ The platform architecture decouples modern frontend interactive states from robu
 ---
 
 ## 📊 Core Data Entities
+* **Users / Roles:** Identity management maps to system roles (`Fleet Manager`, `Driver`, `Safety Officer`, `Financial Analyst`).
+* **Vehicles:** `id`, `name`, `license_plate`, `max_capacity`, `status` (`Available`, `On Trip`, `In Shop`, `Retired`), `current_odometer`.
+* **Drivers:** `id`, `name`, `license_number`, `license_expiry`, `status` (`Available`, `On Trip`, `Suspended`).
+* **Trips:** `id`, `vehicle_id`, `driver_id`, `cargo_weight`, `start_odometer`, `end_odometer`, `fuel_consumed`, `status` (`Scheduled`, `On Trip`, `Completed`).
+* **Maintenance Logs:** `id`, `vehicle_id`, `description`, `cost`, `entry_date`, `completion_date`, `status` (`Open`, `Closed`).
+* **Fuel & Expense Logs:** `id`, `trip_id`, `amount`, `type` (`Fuel`, `Toll`, `Repair`, `Other`), `timestamp`.
+
+---
+
+## 💻 Getting Started & Local Setup
+
+### Prerequisites
+* Node.js (v18+ recommended)
+* A Firebase Project instance initialized via the Google Cloud Console.
+
+### Installation Steps
+
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/](https://github.com/)[your-username]/transitops.git
+   cd transitops
