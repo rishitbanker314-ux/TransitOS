@@ -60,3 +60,26 @@ The platform architecture decouples modern frontend interactive states from robu
    ```bash
    git clone [https://github.com/](https://github.com/)[your-username]/transitops.git
    cd transitops
+   Setup Frontend Dependencies:
+
+Bash
+npm install
+Configure Environment Variables:
+Create a .env.local file in the root directory and connect your Firebase web application keys:
+
+Code snippet
+NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_auth_domain
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
+Run the local development server:
+
+Bash
+npm run dev
+Open http://localhost:3000 inside your web browser to test the deployment layout.
+
+***
+
+Have your teammate create the `README.md` file in the main repository, paste this exact markdown code inside, and commit it with a clear description like `docs: initialize readme with architecture and entity maps`. This will ensure they are credited as an active code contributor on the team portal right away.
