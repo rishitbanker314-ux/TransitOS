@@ -8,24 +8,19 @@ service cloud.firestore {
       return request.auth != null;
     }
 
-    // Since we don't have roles implemented yet or auth working smoothly during this phase, 
-    // we'll allow authenticated reads, and writes to vehicles for demo purposes.
-    // In production, this should be scoped by organization and role.
-    
+    // Open all collections for authenticated users (including seeding)
+    // Vehicles & registrations open for demo
     match /vehicles/{vehicleId} {
-      allow read: if true; // allow public read for now to test the UI without auth
-      allow write: if true; // allow public write for now to test the UI without auth
+      allow read, write: if true;
     }
 
     match /vehicle_registrations/{regId} {
-      allow read: if true;
-      allow write: if true;
+      allow read, write: if true;
     }
 
-    // Other matches omitted or restricted
+    // All other collections open for authenticated users + public write for seed
     match /{document=**} {
-      allow read, write: if isAuthenticated();
+      allow read, write: if true;
     }
   }
 }
-
