@@ -1,6 +1,6 @@
 import { auth } from '@/lib/firebase/config';
 
-export type UserRole = 'admin' | 'fleet_manager' | 'dispatcher' | 'safety_officer' | 'financial_analyst';
+export type UserRole = 'admin' | 'fleet_manager' | 'dispatcher' | 'safety_officer' | 'financial_analyst' | 'hr_manager';
 
 export class PermissionService {
   requireRole(allowedRoles: UserRole[]) {
