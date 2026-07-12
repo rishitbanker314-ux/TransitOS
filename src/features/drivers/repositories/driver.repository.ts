@@ -1,5 +1,5 @@
-import { db } from '@/lib/firebase/config';
-import { collection, doc, getDoc, getDocs, query, where, limit, startAfter, DocumentData } from 'firebase/firestore';
+import { db } from '../../../lib/firebase/config';
+import { collection, doc, getDoc, getDocs, setDoc, updateDoc, query, where, limit, startAfter, onSnapshot, DocumentData } from 'firebase/firestore';
 import { Driver } from '../types/driver.types';
 
 export class DriverRepository {
@@ -9,7 +9,7 @@ export class DriverRepository {
   async findById(id: string): Promise<Driver | null> {
     const docRef = doc(db, this.collectionPath, id);
     const snap = await getDoc(docRef);
-    return snap.exists() ? (snap.data() as Driver) : null;
+    return snap.exists() ? ({ id: snap.id, ...snap.data() } as Driver) : null;
   }
 
   async checkContactExists(email: string, phone: string): Promise<{ emailExists: boolean; phoneExists: boolean }> {
@@ -30,7 +30,6 @@ export class DriverRepository {
   async listDrivers(cursor?: DocumentData, maxResults = 50): Promise<Driver[]> {
     let q = query(
       collection(db, this.collectionPath),
-      where('isArchived', '==', false),
       limit(maxResults)
     );
     if (cursor) {
@@ -38,14 +37,13 @@ export class DriverRepository {
     }
     
     const snap = await getDocs(q);
-    return snap.docs.map(doc => doc.data() as Driver);
+    return snap.docs.map(doc => ({ id: doc.id, ...doc.data() } as Driver));
   }
 
   async listAvailable(cursor?: DocumentData): Promise<Driver[]> {
     let q = query(
       collection(db, this.collectionPath),
       where('status', '==', 'Available'),
-      where('isArchived', '==', false),
       limit(50)
     );
     if (cursor) {
@@ -53,6 +51,27 @@ export class DriverRepository {
     }
     
     const snap = await getDocs(q);
-    return snap.docs.map(doc => doc.data() as Driver);
+    return snap.docs.map(doc => ({ id: doc.id, ...doc.data() } as Driver));
+  }
+
+  async add(driverData: Omit<Driver, 'id'>): Promise<string> {
+    const id = crypto.randomUUID();
+    const docRef = doc(db, this.collectionPath, id);
+    await setDoc(docRef, { ...driverData, id });
+    return id;
+  }
+
+  async updateStatus(id: string, status: string): Promise<void> {
+    const docRef = doc(db, this.collectionPath, id);
+    await updateDoc(docRef, { status, updatedAt: new Date().toISOString() });
+  }
+
+  subscribeToAll(callback: (drivers: Driver[]) => void): () => void {
+    const q = query(collection(db, this.collectionPath));
+    return onSnapshot(q, (snapshot) => {
+      const drivers = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Driver));
+      callback(drivers);
+    });
   }
 }
+

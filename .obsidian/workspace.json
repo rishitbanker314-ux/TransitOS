@@ -178,6 +178,8 @@
   },
   "active": "e76904caa63fbc99",
   "lastOpenFiles": [
+    "dist/assets/index-cw4EQCzp.css",
+    "dist/assets/index-BQJ7E1rY.js",
     "dist/assets/index-ByA5yUWv.css",
     "dist/assets/index-BNyzCn32.js",
     "dist/assets/index-BrKVCw3D.js",
@@ -189,8 +191,6 @@
     "node_modules/dotenv/skills/dotenvx",
     "node_modules/dotenv/skills/dotenv",
     "node_modules/dotenv/lib/main.js",
-    "node_modules/dotenv/lib/main.d.ts",
-    "node_modules/dotenv/lib/env-options.js",
     "node_modules/dotenv/SECURITY.md",
     "node_modules/dotenv/README.md",
     "node_modules/dotenv/README-es.md",
