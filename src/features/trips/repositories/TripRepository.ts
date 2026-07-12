@@ -1,11 +1,13 @@
-import { db } from '@/lib/firebase/config';
+import { db } from '../../../lib/firebase/config';
+import { collection, doc, getDoc, getDocs, query, where, orderBy, setDoc, updateDoc, onSnapshot } from 'firebase/firestore';
 import { Trip, TripEvent } from '../types/trip.types';
 
 export class TripRepository {
-  private collection = db.collection('trips');
+  private collectionName = 'trips';
 
   async create(data: Omit<Trip, 'id' | 'createdAt' | 'updatedAt' | 'status'>, userId: string): Promise<Trip> {
-    const docRef = this.collection.doc();
+    const tripCollection = collection(db, this.collectionName);
+    const docRef = doc(tripCollection);
     const now = new Date().toISOString();
     const trip: Trip = {
       ...data,
@@ -15,25 +17,28 @@ export class TripRepository {
       updatedAt: now,
       createdBy: userId,
     };
-    await docRef.set(trip);
+    await setDoc(docRef, trip);
     return trip;
   }
 
   async getById(id: string): Promise<Trip | null> {
-    const doc = await this.collection.doc(id).get();
-    if (!doc.exists) return null;
-    return doc.data() as Trip;
+    const docRef = doc(db, this.collectionName, id);
+    const docSnap = await getDoc(docRef);
+    if (!docSnap.exists()) return null;
+    return docSnap.data() as Trip;
   }
 
   async updateStatus(id: string, status: Trip['status']): Promise<void> {
-    await this.collection.doc(id).update({ 
+    const docRef = doc(db, this.collectionName, id);
+    await updateDoc(docRef, { 
       status, 
       updatedAt: new Date().toISOString() 
     });
   }
 
   async assign(id: string, vehicleId: string, driverId: string): Promise<void> {
-    await this.collection.doc(id).update({
+    const docRef = doc(db, this.collectionName, id);
+    await updateDoc(docRef, {
       vehicleId,
       driverId,
       status: 'Assigned',
@@ -42,11 +47,25 @@ export class TripRepository {
   }
 
   async getActiveTrips(): Promise<Trip[]> {
-    const snapshot = await this.collection
-      .where('status', 'in', ['Scheduled', 'Assigned', 'InProgress', 'Paused'])
-      .orderBy('schedule.plannedStartTime', 'asc')
-      .get();
-    
-    return snapshot.docs.map((doc: any) => doc.data() as Trip);
+    const tripCollection = collection(db, this.collectionName);
+    const q = query(
+      tripCollection,
+      where('status', 'in', ['Draft', 'Scheduled', 'Assigned', 'InProgress', 'Paused']),
+      orderBy('schedule.plannedStartTime', 'asc')
+    );
+    const snapshot = await getDocs(q);
+    return snapshot.docs.map(doc => doc.data() as Trip);
+  }
+
+  subscribeToActiveTrips(callback: (trips: Trip[]) => void): () => void {
+    const tripCollection = collection(db, this.collectionName);
+    const q = query(
+      tripCollection,
+      where('status', 'in', ['Draft', 'Scheduled', 'Assigned', 'InProgress', 'Paused', 'Completed', 'Cancelled'])
+    );
+    return onSnapshot(q, (snapshot) => {
+      const trips = snapshot.docs.map(doc => doc.data() as Trip);
+      callback(trips);
+    });
   }
 }

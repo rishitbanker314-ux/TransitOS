@@ -12,6 +12,8 @@ import { MaintenancePage } from './pages/MaintenancePage';
 import { FuelExpensesPage } from './pages/FuelExpensesPage';
 import { AnalyticsPage } from './pages/AnalyticsPage';
 import { SettingsPage } from './pages/SettingsPage';
+import { AuthProvider } from './lib/contexts/AuthContext';
+import { ProtectedRoute } from './components/layout/ProtectedRoute';
 
 function AppContent() {
   return (
@@ -19,16 +21,18 @@ function AppContent() {
       <Routes>
         <Route path="/auth" element={<AuthPage />} />
         
-        <Route path="/" element={<AppLayout />}>
-          <Route index element={<Navigate to="/dashboard" replace />} />
-          <Route path="dashboard" element={<DashboardPage />} />
-          <Route path="fleet" element={<FleetPage />} />
-          <Route path="drivers" element={<DriversPage />} />
-          <Route path="trips" element={<TripsPage />} />
-          <Route path="maintenance" element={<MaintenancePage />} />
-          <Route path="fuel" element={<FuelExpensesPage />} />
-          <Route path="analytics" element={<AnalyticsPage />} />
-          <Route path="settings" element={<SettingsPage />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/" element={<AppLayout />}>
+            <Route index element={<Navigate to="/dashboard" replace />} />
+            <Route path="dashboard" element={<DashboardPage />} />
+            <Route path="fleet" element={<FleetPage />} />
+            <Route path="drivers" element={<DriversPage />} />
+            <Route path="trips" element={<TripsPage />} />
+            <Route path="maintenance" element={<MaintenancePage />} />
+            <Route path="fuel" element={<FuelExpensesPage />} />
+            <Route path="analytics" element={<AnalyticsPage />} />
+            <Route path="settings" element={<SettingsPage />} />
+          </Route>
         </Route>
         
         {/* Fallback route */}
@@ -41,9 +45,11 @@ function AppContent() {
 export default function App() {
   return (
     <ErrorBoundary>
-      <DemoProvider>
-        <AppContent />
-      </DemoProvider>
+      <AuthProvider>
+        <DemoProvider>
+          <AppContent />
+        </DemoProvider>
+      </AuthProvider>
     </ErrorBoundary>
   );
 }
