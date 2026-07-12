@@ -1,0 +1,220 @@
+{
+  "main": {
+    "id": "6969cb0d9282087e",
+    "type": "split",
+    "children": [
+      {
+        "id": "065471799fee7ca2",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e76904caa63fbc99",
+            "type": "leaf",
+            "state": {
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "Graph view"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "5222e49d6a596114",
+    "type": "split",
+    "children": [
+      {
+        "id": "725558c052b139cd",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "df4da35710efbce8",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "708439c9af45f225",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "2d11851554674254",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "e0c60498dfadf634",
+    "type": "split",
+    "children": [
+      {
+        "id": "a13b89d1c013032c",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "68c8fb1794de1eb4",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks"
+            }
+          },
+          {
+            "id": "1b426c390563b526",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links"
+            }
+          },
+          {
+            "id": "99cf29f917438e07",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "b465c9d5922f7c93",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "b8cdc6708381079c",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "e76904caa63fbc99",
+  "lastOpenFiles": [
+    "src/features/vehicles/components/search/VehicleSearchHistory.tsx",
+    "src/features/vehicles/components/search/VehicleFilterDrawer.tsx",
+    "src/features/vehicles/components/search/VehicleSavedFilters.tsx",
+    "src/features/vehicles/components/search/VehicleSearch.tsx",
+    "src/features/vehicles/components/search/VehicleBulkActions.tsx",
+    "src/features/vehicles/components/search/VehicleFilterChips.tsx",
+    "src/features/vehicles/components/search/VehicleSearchBar.tsx",
+    "src/features/vehicles/components/search",
+    "src/features/vehicles/hooks/useVehicleSearch.ts",
+    "src/features/vehicles/hooks/useVehicleFilters.ts",
+    "src/features/vehicles/actions/VehicleSearchAI.actions.ts",
+    "node_modules/date-fns/SECURITY.md",
+    "node_modules/date-fns/README.md",
+    "node_modules/date-fns/LICENSE.md",
+    "node_modules/date-fns/CHANGELOG.md",
+    "node_modules/date-fns/docs/webpack.md",
+    "node_modules/date-fns/docs/unicodeTokens.md",
+    "node_modules/date-fns/docs/timeZones.md",
+    "node_modules/date-fns/docs/release.md",
+    "node_modules/date-fns/docs/logotype.svg",
+    "node_modules/date-fns/docs/logo.svg",
+    "node_modules/date-fns/docs/i18nContributionGuide.md",
+    "node_modules/date-fns/docs/i18n.md",
+    "node_modules/date-fns/docs/gettingStarted.md",
+    "node_modules/date-fns/docs/fp.md",
+    "node_modules/date-fns/docs/cdn.md",
+    "node_modules/@types/uuid/README.md",
+    "node_modules/uuid/README.md",
+    "node_modules/uuid/LICENSE.md",
+    "node_modules/@hookform/resolvers/README.md",
+    "node_modules/@standard-schema/utils/README.md",
+    "node_modules/@google/generative-ai/README.md",
+    "node_modules/react-hook-form/README.md",
+    "node_modules/firebase/README.md",
+    "node_modules/@firebase/firestore/README.md",
+    "node_modules/lucide-react/README.md",
+    "node_modules/@firebase/auth/README.md",
+    "node_modules/react-dom/README.md"
+  ]
+}
