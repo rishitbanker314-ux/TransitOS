@@ -1,6 +1,6 @@
 export type BusinessEventType = 
   | 'vehicle.created' | 'vehicle.updated' | 'vehicle.status_changed'
-  | 'trip.created' | 'trip.started' | 'trip.completed' | 'trip.failed' | 'trip.assigned'
+  | 'trip.created' | 'trip.started' | 'trip.completed' | 'trip.failed' | 'trip.assigned' | 'trip.updated'
   | 'maintenance.requested' | 'maintenance.started' | 'maintenance.finished' | 'maintenance.blocked'
   | 'driver.assigned' | 'driver.status_changed' | 'driver.available'
   | 'document.uploaded' | 'document.verified' | 'document.expired'
@@ -22,6 +22,7 @@ type EventCallback<T = any> = (event: BusinessEvent<T>) => Promise<void> | void;
 class BusinessEventBus {
   private static instance: BusinessEventBus;
   private subscribers: Map<BusinessEventType, EventCallback[]> = new Map();
+  private deadLetterQueue: { event: BusinessEvent; error: any; timestamp: string }[] = [];
 
   private constructor() {}
 
@@ -55,8 +56,24 @@ class BusinessEventBus {
     const failures = results.filter((r): r is PromiseRejectedResult => r.status === 'rejected');
     if (failures.length > 0) {
       console.error(`[EventBus] ${failures.length} subscribers failed for event ${event.type}`, failures);
-      // In a real production system, push to a Dead Letter Queue here.
+      
+      // Push to in-memory Dead Letter Queue
+      failures.forEach(failure => {
+        this.deadLetterQueue.push({
+          event,
+          error: failure.reason,
+          timestamp: new Date().toISOString()
+        });
+      });
     }
+  }
+
+  public getDeadLetters() {
+    return [...this.deadLetterQueue];
+  }
+
+  public clearDeadLetters() {
+    this.deadLetterQueue = [];
   }
 
   public createEvent<T = any>(
